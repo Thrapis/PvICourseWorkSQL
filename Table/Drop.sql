@@ -1,0 +1,17 @@
+DROP TABLE Account cascade constraints PURGE;
+DROP SEQUENCE account_seq;
+DROP TABLE VideoPage cascade constraints PURGE;
+DROP TABLE VideoThumbnail cascade constraints PURGE;
+DROP SEQUENCE video_thumbnail_seq;
+DROP TABLE VideoSource cascade constraints PURGE;
+DROP SEQUENCE video_source_seq;
+DROP TABLE Tag cascade constraints PURGE;
+DROP SEQUENCE tag_seq;
+DROP TABLE TagLink cascade constraints PURGE;
+DROP SEQUENCE tag_link_seq;
+DROP TABLE "Comment" cascade constraints PURGE;
+DROP SEQUENCE comment_seq;
+DROP TABLE AuthVideoView cascade constraints PURGE;
+DROP SEQUENCE auth_video_view_seq;
+DROP TABLE NonAuthVideoView cascade constraints PURGE;
+DROP SEQUENCE non_auth_video_view_seq;
