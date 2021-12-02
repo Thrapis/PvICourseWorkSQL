@@ -68,14 +68,18 @@ CREATE OR REPLACE PACKAGE BODY InfoPackage IS                -----Start of packa
     BEGIN
         OPEN video_preview_cur FOR
         SELECT
+            DISTINCT
             vp.Id "VideoPageId",
             vp.VideoName,
             (SELECT a.Login FROM Account a WHERE a.Id = vp.AccountId) "Author",
             (SELECT (SELECT COUNT(*) FROM AuthVideoView WHERE VideoPageId = vp.Id) +
                 (SELECT COUNT(*) FROM NonAuthVideoView WHERE VideoPageId = vp.Id) FROM dual) "Views"
         FROM VideoPage vp INNER JOIN Account a ON vp.AccountId = a.Id
+            INNER JOIN TagLink tl ON vp.Id = tl.VideoPageId
+            INNER JOIN Tag t ON tl.TagId = t.Id
         WHERE (LOWER(vp.VideoName) LIKE '%'||LOWER(par_like_pattern)||'%'
-            OR LOWER(a.LOGIN) LIKE '%'||LOWER(par_like_pattern)||'%')
+            OR LOWER(a.Login) LIKE '%'||LOWER(par_like_pattern)||'%'
+            OR LOWER('#'||t.Name) LIKE '%'||LOWER(par_like_pattern)||'%')
             AND ROWNUM <= par_count;
     END;
 
